@@ -43,10 +43,12 @@
     	public static function getEventos($id_usuario){
     		$Num_regalos = "Num_regalos";
     		$Regalos_comp = "Regalos_comp";
+            $Gastado = "Gastado";
 
     		$consulta = "SELECT id_evento, Evento.nombre, presupuesto, creador,
 				COUNT(Regalo.id_regalo) as $Num_regalos,
-				COUNT(Regalo.comprador) as $Regalos_comp 
+				COUNT(Regalo.comprador) as $Regalos_comp,
+                SUM(CASE WHEN Regalo.comprado=1 THEN Regalo.precio END) as $Gastado
 				FROM Pertenencia INNER JOIN Evento ON Pertenencia.evento=Evento.id_evento
 				LEFT JOIN Regalo ON Evento.id_evento=Regalo.evento
 				WHERE Pertenencia.usuario=?
