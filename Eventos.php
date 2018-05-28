@@ -48,7 +48,7 @@
     		$consulta = "SELECT id_evento, Evento.nombre, presupuesto, creador,
 				COUNT(Regalo.id_regalo) as $Num_regalos,
 				COUNT(Regalo.comprador) as $Regalos_comp,
-                SUM(CASE WHEN Regalo.comprado=1 THEN Regalo.precio END) as $Gastado
+                SUM(CASE WHEN Regalo.comprado=1 THEN Regalo.precio ELSE 0 END) as $Gastado
 				FROM Pertenencia INNER JOIN Evento ON Pertenencia.evento=Evento.id_evento
 				LEFT JOIN Regalo ON Evento.id_evento=Regalo.evento
 				WHERE Pertenencia.usuario=?
